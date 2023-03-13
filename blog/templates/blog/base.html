@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    {% if title %}
+        <title>QSC - {{ title }}</title>
+    {% else %}
+        <title>QSC</title>
+    {% endif %}
+
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+	  </script>
+	
+	  <script src=
+      "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+	  </script>
+	
+	  <link href=
+      "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+		  rel="stylesheet" type="text/css" />
+
+    <script>
+      function increaseDislikeCount(){
+        document.getElementById("dislike_count").innerHTML = parseInt(document.getElementById("dislike_count").innerHTML) + 1
+      }
+
+      function increaseLikeCount(){
+        document.getElementById("like_count").innerHTML = parseInt(document.getElementById("like_count").innerHTML) + 1
+      }
+
+      function getProfile(name){
+        document.getElementById("profile").innerHTML = "<p><b>Contact:</b>"+ name +"@tamu.edu <br/> <b>Expertise:</b> C[Expert], C#[Intermediate], SQL[Novice] </p>"
+      } 
+    </script>
+
+</head>
+<body style="padding-top: 20px;"></body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">QSC</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        {% if not registration %}
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Top Tags</h3>
+            <p class='text-muted'> Prime tags of the current page
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Python</li>
+                <li class="list-group-item list-group-item-light">Data Structures</li>
+                <li class="list-group-item list-group-item-light">Arrays</li>
+                <li class="list-group-item list-group-item-light">Linked List</li>
+              </ul>
+            </p>
+          </div>
+          <div class="content-section">
+            <h3>Online experts</h3>
+            <a class="text-muted" onclick="getProfile('hunter')">&#128994 Hunter Mccall</a>
+            <a class="text-muted" onclick="getProfile('edith')">&#128994 Edith Brennan</a>
+            <br />
+            <a class="text-muted" onclick="getProfile('ajay')">&#128994 Ajay Dhawan</a>
+            <input type="text" placeholder= "Tag groups" id="tags">
+            <script>
+            $( function() {
+            var availableTags = [
+                {% for taggroup in taggroups %}
+                    "{{taggroup.name}}",
+                {% endfor %}
+            ];
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+            });
+            </script>
+            <div id="profile"></div>
+            <button type="button" class="btn btn-secondary" onclick="search()">Search</button>
+            <div id="search-div" style="display: none;">
+              <a class="text-muted">Andres Matthews</a>
+              <br />
+              <a class="text-muted">Adah Mitra</a>
+              <br />
+              <a class="text-muted">Casey Bullock</a>
+            </div>
+            <script>
+              function search() {
+                var x = document.getElementById("search-div");
+                if (x.style.display == "none") {
+                    x.style.display = "block";
+                } else {
+                   x.style.display = "none";
+                  }
+            }
+            </script>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </main>
+</body>
+</html>

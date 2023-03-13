@@ -1,0 +1,170 @@
+<head>
+    <title>Query Search Collaborator: User Registration</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    
+</head>
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Register</legend>
+        </fieldset>
+        <!-- <fieldset class="form-group"> -->
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Gmail ID:</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Gmail ID (full-email)">
+                </div>
+                <div class="form-group">
+                <label for="about_user">Tell us about yourself:</label>
+                    <textarea class="form-control" name="about_user" id="about_user" rows="3" placeholder="Enter few lines about your experience and work">
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="password1">Re-Enter Password:</label>
+                    <input type="password" class="form-control" name="password1" id="password1" placeholder="Password">
+                </div>
+                
+            <label for="tag-select">Expertise Tag Selection:</label>
+            <div class="form-group">
+                <div class="row justify-content-left">
+                <div class="row" style="margin: 10px 0;">
+                    <div id="AddContainer">
+                         <!--new rows with content to add will be added here-->
+                    </div>
+                    <br/>
+                    <input id="btnAdd" type="button" class="btn btn-success" value="+" />
+               </div>
+                
+                </div>
+            </div>
+
+        <!-- </fieldset> -->
+        
+        <div class="form-group text-center" id="signup-button" style="padding: 1%;">
+            <button class="btn btn-primary" id="register" data-toggle="modal" data-target="#exampleModal">Register</button>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">User Registered</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  You're now registered successfully!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script>
+  (function($) {
+"use strict";
+
+var settingsListAry = ['Java', 'Django', 'Flask','APIs','Linked List','Arrays', 'Python', 'Data Structures', 'Python', 'Algorithm'];
+var levelsListAry = ['1 - Fundamental Awareness (Basic)','2 - Novice (Limited Experience)', '3 - Intermediate (Pratical Experience)', '4 - Advanced (Applied Theory)', '5 - Expert (Recognized Theory)']
+$("#btnAdd").bind("click", function () {
+
+var div = $("<div /></br>");
+div.html(GetDynamicTextBox(''));
+$("#AddContainer").append(div);
+});
+
+$("#btnGet").bind("click", function () {
+    var values = "";
+    $("input[name=DynamicTextBox]").each(function () {
+        values += $(this).val() + "\n";
+    });
+    alert(values);
+});
+
+$("body").on("click", ".remove", function () {
+    $(this).closest("div").remove();
+    var ddlId = $('[id*=hfDDLId]').val();
+    $('[id$=ddl' + parseInt(ddlId) + ']').remove();
+    $('[id*=hfDDLId]').val(parseInt($('[id*=hfDDLId]').val()) - 1);
+    var previousDropDownId = $('[id*=hfDropDownIds]').val();
+    $('[id*=hfdropdownids]').val(resultids);
+    //}
+});
+
+$(document).ready(function() {
+    $('.select2').select2({
+    closeOnSelect: false
+});
+
+});
+
+function GetDynamicTextBox(value) {
+
+    var combo = $('<select class="form-control select2 js-select2" style="border-radius: 0;box-shadow: none;border-color: #d2d6de;"></select>').attr("id", value).attr("name", value).attr("runat", "server").attr("class", "class").attr("required", "required");
+    var level = $('<select class="form-control select2 js-select2" style="border-radius: 0;box-shadow: none;border-color: #d2d6de;"></select>').attr("id", value+"lev").attr("name", value).attr("runat", "server").attr("class", "class").attr("required", "required");
+    $.each(settingsListAry, function (i, el) {
+        combo.append("<option value=" + el + ">" + el + "</option>");
+    });
+    $.each(levelsListAry, function (i, el) {
+        level.append("<option value=" + el + ">" + el + "</option>");
+    });
+
+    return '<input type="button" value="-" class="remove btn btn-danger" />&nbsp'
+    + combo.prop('outerHTML') + '&nbsp'
+    + level.prop('outerHTML');
+}
+
+function ClearAddTab() {
+    document.getElementById("AddContainer").innerHTML = "";
+}
+
+
+$(".js-select2").select2({
+        closeOnSelect : false,
+        allowHtml: true,
+        allowClear: true,
+        tags: true 
+    });
+
+})(jQuery); 
+
+
+</script>
+    
+{% endblock content %}
